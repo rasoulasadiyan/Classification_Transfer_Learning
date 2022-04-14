@@ -1,0 +1,149 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Upload Image</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+
+    <link
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+      integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+      crossorigin="anonymous"
+    />
+
+    <style>
+
+        body{
+            background-color: teal;
+            height: 100%;
+        }
+
+        .upload_file{
+            height: 200px;
+            width: 200px;
+            border-radius: 100px;
+            border: 4px solid white;
+            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            overflow: hidden;
+            /* position: absolute; */
+            position: relative;
+            background-image: linear-gradient(to bottom, #5f97b1 50%,  #ffffff 50%);
+            transition: all 2s;
+            background-size: 100% 200%;
+            color: white;
+
+            font-size: 100px;
+        }
+        .upload_file:hover{
+            background-position: 0 -100%;
+            color: chartreuse;
+        }
+
+        .wrapper{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .sub{
+            padding: 15px;
+            border-radius: 1rem;
+            margin-inline-start: 20px;
+            transition: 0.75s;
+            margin: 10px;
+            width: 50px;
+            margin-left: 250px;
+            
+        }
+        .sub:hover{
+            transform: scale(1.5);
+            color:rgb(251, 250, 249);
+            background-color:rgb(15, 15, 14);
+            position: relative;
+        }
+
+        .sub2{
+            width: 100px;
+            height: 60px;
+            border-radius: 1rem;
+            margin-inline-start: 20px;
+            margin: 10px;
+            margin-left: 250px;
+            font-size: large; 
+            background-color: chartreuse;
+        }
+        input[type='file']{
+            position: absolute;
+            height: 250px;
+            width: 200px;
+            cursor: pointer;
+    
+        }
+
+        h2{
+            margin-bottom: -100px;
+            margin-left:43%;
+            color:bisque;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        h1{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color: antiquewhite;
+        }
+
+        
+    </style>
+
+</head>
+
+<body>
+    {% if massage %}
+    <body class="msg_body">
+        <div class="msg">{{massage}}</div>
+    </body>
+        
+    {% endif %}
+    
+   
+    {% if file_name %}
+        <h1>Uploaded image</h1><hr>
+        <img src="{{url_for('display',filename=file_name)}}"><br>
+        
+        <form action="/predict"  method="post">
+
+            <!-- <input type="file" name="img" > -->
+            <button type="submit" class="sub2">Predict</button>
+            
+        </form>
+
+        
+    {% endif %}
+    
+
+    {% if  not file_name %}
+        <h2 >Select file to upload </h2>
+        <div class="wrapper">
+        
+        <form method="post", action='/' , enctype="multipart/form-data">
+        <div class="upload_file">
+           <input type="file" name="img_file"  required><i class="fa fa-arrow-up"></i>
+        </div>
+        
+        <button type="submit" class="sub" >GO</button>
+        </form>
+
+        </div>
+     
+    {% endif %}
+    
+</body>
+</html>

@@ -1,0 +1,34 @@
+body{
+    background-color: lightgoldenrodyellow;
+}
+
+.msg_body{
+    background-color:darkslategray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.msg{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    width: 50%;
+
+    background-color: beige;
+    color: brown;
+    padding: 25px;
+    border-radius: 1rem;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: medium;
+}
+
+#submit_btn{
+    color: white;
+    font-size: large;
+    position: fixed;
+    background-color: aqua;
+ 
+}
+
+
