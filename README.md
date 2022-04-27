@@ -4,3 +4,7 @@
 ```bash
  git https://github.com/rasoulasadiyan/classification_transfer_learning
 
+2.
+```bash
+pip install -r requirements.txt
+
