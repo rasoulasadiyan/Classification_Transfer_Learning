@@ -10,6 +10,10 @@ import keras.models
 import numpy as np
 import cv2
 from keras.applications.vgg16 import preprocess_input
+import werkzeug
+from flask import json
+from werkzeug.exceptions import HTTPException
+from flask import abort
 
 global model,graph
 
@@ -62,8 +66,8 @@ def display(filename):
 def predict():
     class_names=['cat','dog','wild']
     
-    img=load_img('static/Uploads/flickr_dog_000131.jpg')
-    img=np.resize(img,(150,150,3))
+    img=load_img('static/Uploads/flickr_wild_001647.jpg')
+    img=np.resize(img,(300,300,3))
  
     x = np.expand_dims(img, axis=0)
     x = preprocess_input(x)
@@ -74,4 +78,40 @@ def predict():
     print(str(feature))
     msg=class_names[pred]
     return render_template('msg.html',massage=msg)
-	
+
+
+'''
+When an error occurs in Flask, an appropriate HTTP status code will be returned.
+400-499 indicate errors with the client’s request data, or about the data requested.
+500-599 indicate errors with the server or application itself.
+
+
+'''
+
+
+@app.errorhandler(404)
+def page_not_found(error):
+    return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return render_template('500.html'), 500
+
+
+@app.errorhandler(werkzeug.exceptions.BadRequest)
+def handle_bad_request(e):
+    return '!!!Bad request.', 400
+
+@app.errorhandler(HTTPException)
+def handle_exception(e):
+    """Return JSON instead of HTML for HTTP errors."""
+    # start with the correct headers and status code from the error
+    response = e.get_response()
+    # replace the body with JSON
+    response.data = json.dumps({
+        "code": e.code,
+        "name": e.name,
+        "description": e.description,
+    })
+    response.content_type = "application/json"
+    return response    
