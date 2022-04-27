@@ -15,7 +15,12 @@ pip install -r requirements.txt
 python app.py
 ```
 
-4. go to [this address](http://127.0.0.1:5000)in youre browser
+4. finally go to [this address](http://127.0.0.1:5000) in youre browser
+
+5. you can change default port with this command:
+```bash
+python app.py -p your_port
+```
 
 
 
